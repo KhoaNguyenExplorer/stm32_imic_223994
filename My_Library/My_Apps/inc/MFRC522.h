@@ -6,11 +6,6 @@
 //Maximum length of the array
 #define MAX_LEN 16
 
-// Configure the SPI to use the MFRC522 library
-#define RC522_ENABLE    1
-#define RC522_DISABLE   0
-#define RC522_FEATURE   RC522_DISABLE
-
 //MF522 Command word
 #define PCD_IDLE              0x00               //NO action; Cancel the current command
 #define PCD_AUTHENT           0x0E               //Authentication Key
@@ -131,6 +126,6 @@ u_char MFRC522_Read(u_char, u_char*);
 u_char MFRC522_Write(u_char, u_char*);
 void MFRC522_Halt();
 void MFRC522_StopCrypto1(void);
-
+void MFRC522_ReadDemo(void);
 
 #endif /* MFRC522_H_ */

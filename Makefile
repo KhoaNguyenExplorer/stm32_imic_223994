@@ -27,6 +27,7 @@ All:
 	${CC} -c ${COMPILER_FLAG} ${CORE_DIR} ${HEADER_DIR} ./My_Library/My_HAL/src/AD_converter.c -o Build/obj/AD_converter.o	
 	${CC} -c ${COMPILER_FLAG} ${CORE_DIR} ${HEADER_DIR} ./My_Library/My_HAL/src/Peripheral_LED.c -o Build/obj/Peripheral_LED.o
 	${CC} -c ${COMPILER_FLAG} ${CORE_DIR} ${HEADER_DIR} ./My_Library/My_HAL/src/Timer.c -o Build/obj/Timer.o
+	${CC} -c ${COMPILER_FLAG} ${CORE_DIR} ${HEADER_DIR} ./My_Library/My_Apps/src/MFRC522.c -o Build/obj/MFRC522.o	
 	
 	${CC} -c -x assembler-with-cpp startup_stm32f411vetx.s -o Build/obj/startup_stm32f411vetx.o
 	

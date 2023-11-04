@@ -16,6 +16,6 @@
 
 void adc1_init();
 int adc1_vin_measure();
-float adc1_get_temp();
+int adc1_get_temp();
 
 #endif /* MY_LIBRARY_INC_AD_CONVERTER_H_ */

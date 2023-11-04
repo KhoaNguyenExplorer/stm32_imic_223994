@@ -4,6 +4,14 @@
 #include <string.h>
 #include <inttypes.h>
 #include "MFRC522.h"
+
+//--------------- Global variables --------------------0
+uint8_t status = 0;
+uint8_t cardstr[MAX_LEN + 1];
+uint8_t card_data[4] = {0x56, 0xa7, 0x51, 0xd2};
+uint8_t card_trial = 4;
+uint8_t wait_time = 5;
+
 //------------------------------------------------------
 /*
  * Function Nameï¼šWrite_MFRC5200
@@ -523,3 +531,61 @@ void MFRC522_StopCrypto1(void) {
 	// Clear MFCrypto1On bit
 	ClearBitMask(Status2Reg, 0x08); // Status2Reg[7..0] bits are: TempSensClear I2CForceHS reserved reserved   MFCrypto1On ModemState[2:0]
 } // End PCD_StopCrypto1()
+
+void MFRC522_ReadDemo(void)
+{
+  status = MFRC522_Request(PICC_REQIDL, cardstr);
+  if (card_trial > 0)
+  {
+    if (status == MI_OK)
+    {
+      delay(1);
+      status = MFRC522_Anticoll(cardstr);
+      if ((cardstr[1] == card_data[0]) && (cardstr[2] == card_data[1]) && (cardstr[3] == card_data[2]) && (cardstr[4] == card_data[3]))
+      {
+        LED_ctrl(LED_RED, LED_RESET);
+        LED_ctrl(LED_BLUE, LED_SET);
+        LED_ctrl(LED_ORANGE, LED_RESET);
+        custom_printf("ID received: %.2x-%.2x-%.2x-%.2x\r\n", cardstr[1], cardstr[2], cardstr[3], cardstr[4]);
+        custom_printf("Correct card\n");
+        card_trial = 3;
+      }
+      else
+      {
+        if (card_trial > 1)
+        {
+          --card_trial;
+          LED_ctrl(LED_BLUE, LED_RESET);
+          LED_ctrl(LED_RED, LED_RESET);
+          LED_ctrl(LED_ORANGE, LED_SET);
+          custom_printf("ID received: %.2x-%.2x-%.2x-%.2x\r\n", cardstr[1], cardstr[2], cardstr[3], cardstr[4]);
+          custom_printf("WARNING: Wrong card!\nYou have %d trial left\n", card_trial);
+        }
+        else if (card_trial == 1)
+        {
+          LED_ctrl(LED_RED, LED_SET);
+          LED_ctrl(LED_ORANGE, LED_RESET);
+          LED_ctrl(LED_BLUE, LED_RESET);
+          custom_printf("You inserted the wrong card 3 times, please wait for 5s before trying again!\n");
+          for (int i = 0; i < wait_time; i++)
+          {
+            custom_printf("%d\n", wait_time - i);
+            delay(1000);
+          }
+          card_trial = 4;
+          // LED_ctrl(LED_RED, LED_RESET);
+        }
+      }
+    }
+    else if (status == MI_ERR)
+    {
+      LED_ctrl(LED_BLUE, LED_RESET);
+      LED_ctrl(LED_ORANGE, LED_RESET);
+      LED_ctrl(LED_ORANGE, LED_RESET);
+    }
+    delay(500);
+  }
+  else
+  {
+  }
+}

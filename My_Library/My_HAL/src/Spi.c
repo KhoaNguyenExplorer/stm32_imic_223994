@@ -116,7 +116,6 @@ uint8_t spi_read(uint8_t data_type)
     *SPI1_DR = data_type;			// for RC522
 #else
     *SPI1_DR = (data_type | 0x80);        // set bit 1 to read data from slave
-    // *SPI1_DR = ((data_type << 1) | (1 << 7)) & (0b11111110);        // set bit 1 to read data from slave
 #endif
 
     while (((*SPI1_SR >> 7) & 1) == 1);   // wait until BSY = 0

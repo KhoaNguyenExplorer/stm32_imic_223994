@@ -41,11 +41,11 @@ int adc1_vin_measure()
     return (ADC1_DR * 3000) / 4095;
 }
 
-float adc1_get_temp()
+int adc1_get_temp()
 {
     int Vin = adc1_vin_measure();
     // Temperature (in °C) = {(VSENSE – V25) / Avg_Slope} + 25
-    float temperature = ((Vin - V25) / Avg_Slope) + 25;
+    int temperature = (int)((Vin - V25) / Avg_Slope) + 25;
 
     return temperature;
 }

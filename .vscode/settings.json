@@ -12,7 +12,8 @@
         "task.h": "c",
         "freertos.h": "c",
         "string.h": "c",
-        "queue.h": "c"
+        "queue.h": "c",
+        "mfrc522.h": "c"
     },
     "cmake.sourceDirectory": "E:/EMBEDDED/STM32/STM32_GCC_Build/FreeRTOS-LTS/aws/ota-for-aws-iot-embedded-sdk/source/dependency/coreJSON/test"
 }

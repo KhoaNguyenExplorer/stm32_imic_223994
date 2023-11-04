@@ -36,12 +36,7 @@ extern "C" {
 #include "queue.h"
 
 /* Exported types ------------------------------------------------------------*/
-// typedef enum
-// {
-// 	VOLTAGE_TEMP,
-// 	GYRO_READ,
-//   CARD_READ
-// } program_select_t;
+
 /* Exported constants --------------------------------------------------------*/
 
 /* Exported macro ------------------------------------------------------------*/
@@ -51,10 +46,25 @@ void Error_Handler(void);
 void SystemInit(void);
 
 /* Private defines -----------------------------------------------------------*/
-#define VOLTAGE_TEMP    0
-#define GYRO_READ       1
-#define CARD_READ       2
-#define PROGRAM_SELECT  GYRO_READ
+#define FREERTOS_ENABLE   1
+#define FREERTOS_DISABLE  0
+#define FREERTOS_FEATURE  FREERTOS_ENABLE
+
+#define VOLTAGE_ADC       0
+#define CPU_TEMP          1
+#define GYRO_READ         2
+#define CARD_READ         3
+#define PROGRAM_SELECT    CARD_READ
+
+// Configure the SPI to use the MFRC522 library
+#define RC522_ENABLE    1
+#define RC522_DISABLE   0
+
+#if (PROGRAM_SELECT == CARD_READ)
+#define RC522_FEATURE   RC522_ENABLE
+#else
+#define RC522_FEATURE   RC522_DISABLE
+#endif
 
 #ifdef __cplusplus
 }
