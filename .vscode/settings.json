@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "spi.h": "c",
+        "firmware_update.h": "c",
+        "peripheral_led.h": "c",
+        "main.h": "c",
+        "adc.h": "c",
+        "clock.h": "c",
+        "winapifamily.h": "c",
+        "ad_converter.h": "c",
+        "uart.h": "c",
+        "task.h": "c",
+        "freertos.h": "c",
+        "string.h": "c",
+        "queue.h": "c"
+    },
+    "cmake.sourceDirectory": "E:/EMBEDDED/STM32/STM32_GCC_Build/FreeRTOS-LTS/aws/ota-for-aws-iot-embedded-sdk/source/dependency/coreJSON/test"
+}

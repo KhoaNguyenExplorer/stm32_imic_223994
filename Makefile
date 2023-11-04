@@ -37,7 +37,9 @@ All:
 	arm-none-eabi-objcopy -O ihex ./Build/exe/stm32_fw.elf ./Build/exe/stm32_fw.hex
 
 Clear:
-	rm Build/*
+	rm ./Build/map/*	
+	rm ./Build/exe/*	
+	rm ./Build/obj/*
 
 Flash:
 	ST-LINK_CLI -c SWD -SE 0 2 -P "Build/exe/stm32_fw.bin" 0x08000000 -V -Run
